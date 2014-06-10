@@ -108,6 +108,7 @@ $(document).ready( function () {
         //a=Sumx2();
 
         $('#aValue').text(a);
+        $('#aValueRounded').text(Math.round(a * 100) / 100);
     }
 
     function calculateB() {
@@ -119,6 +120,7 @@ $(document).ready( function () {
         
         b=parseInt(n)/parseInt(m);
         $('#bValue').text(b);
+        $('#bValueRounded').text(Math.round(b * 100) / 100);
     }
 
     function calculateR() {
