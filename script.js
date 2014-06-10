@@ -7,14 +7,20 @@ $(document).ready( function () {
     }*/
 
     var points = [[1,2],[2,3],[9,1]];
+    var points2 = [[2, 4], [1, 3]];
 
     var plot = $.jqplot ("chartHolder", [points], {
-	title: 'graph',
-	series: [{showMarker: false}],
-	dataRender: addPair
+        title: 'graph',
+        series: [{showMarker: false}]
     });
 
     function addPair(x, y) {
+        plot.destroy();
+        plot = $.jqplot ("chartHolder", [points2], {
+            title: ':O',
+            series: [{showMarker: false}]
+        });
+
         $("#dataTable").prepend("<tr><td>"+x+"</td><td>"+y+"</td></tr>");
 
         X.push(x);
