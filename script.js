@@ -29,17 +29,13 @@ $(document).ready( function () {
         Y.push(y);
         calculateA();
         calculateB();
-        calculateX();
+        calculateR();
 
         var data = [[]];
         data[0].push([x, y]);
         return data;
     }
 
-
-    /**
-     
-*/
     function Sumx(){
         var sumx=0;
         
@@ -58,9 +54,7 @@ $(document).ready( function () {
         }
         return parseInt(sumy);
     }
-    
-    function Sumx2()
-    {
+    function Sumx2() {
         var sumx2=0;
         var x2=0;
         for(var i=0;i< X.length; i++)
@@ -75,8 +69,7 @@ $(document).ready( function () {
 
         return parseInt(sumx2);
     }
-    function Sumy2()
-    {
+    function Sumy2() {
         var sumy2=0;
         var y2=0;
         for(var i=0;i< Y.length; i++)
@@ -86,8 +79,7 @@ $(document).ready( function () {
         }
         return parseInt(sumy2);
     }
-    function Sumxy()
-    {
+    function Sumxy() {
         var sumxy=0;
         var xy=0;
         for(var i=0;i< X.length; i++)
@@ -97,11 +89,6 @@ $(document).ready( function () {
         }
         return parseInt(sumxy);
     }
-    /**
-    
-    
-    */
-
 
     function calculateA() {
         var a = 0;
