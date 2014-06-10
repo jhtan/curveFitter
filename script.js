@@ -1,5 +1,7 @@
 $(document).ready( function () {
     var X = [2,4,6,8,10,12,15], Y = [0,10,18,32,45,52,65]; // the data of the graph.
+    var a;
+    var b;
     calculateA();
     calculateB();
     calculateR();
@@ -91,7 +93,7 @@ $(document).ready( function () {
     }
 
     function calculateA() {
-        var a = 0;
+        a = 0;
         /**for(var i = 0; i< X.length; i++) {
             a += parseInt(X[i]);
         }
@@ -112,7 +114,7 @@ $(document).ready( function () {
     }
 
     function calculateB() {
-        var b=0;
+        b=0;
         var n=0;
         n=(X.length*Sumxy())-(Sumx()*Sumy()); 
         var m=0;
@@ -137,6 +139,19 @@ $(document).ready( function () {
 
 
 
+    }
+
+    //calculate Sy/x, Sa, Sb
+    function Syx()
+    {
+        var Syx=0;
+        var sumab=0;
+        for( var i=0; i< X.length; i++)
+        {
+            sumab+=((a+b*X[i])-Y[i])*((a+b*X[i])-Y[i]);
+        }
+        Syx = Math.sqrt(samab/X.length()-2)
+         
     }
 
     $("#newXCoordinate, #newYCoordinate").change(function () {
