@@ -93,8 +93,13 @@ $(document).ready( function () {
             calculateA(lnX, lnY);
             calculateB(lnX, lnY);
             potentialFunctionPoints();
-            uncertaintyA(ea2,b2,lnX,lnY);
-            uncertaintyB(ea2,b2,lnX,lnY);
+            var sa = uncertaintyA(ea2,b2,lnX,lnY);
+            var sb = uncertaintyB(ea2,b2,lnX,lnY);
+
+            $('#saValue').text(sa);
+            $('#sbValue').text(sb);
+            $('#saValue2').text(Math.round(sa*100)/100);
+            $('#sbValue2').text(Math.round(sb*100)/100);
         } else if(Math.abs(1-r3)<Math.abs(1-r1) && Math.abs(1-r3)<Math.abs(1-r2) && Math.abs(1-r3)<Math.abs(1-r4)) {
             // It's selected the logarithmic model.
             $('#collapseDecisionTable').text('Se eligió el modelo logarítmico');
@@ -306,7 +311,7 @@ $(document).ready( function () {
     {
         var Ea=0;
         Ea=Sa(a, b, vX, vY)*factorT();
-        alert(Ea);
+        return Ea;
 
     }
     //calculate uncertainty of b
@@ -314,7 +319,7 @@ $(document).ready( function () {
     {
         var Eb=0;
         Eb=Sb(a, b, vX, vY)*factorT();
-        alert(Eb);
+        return Eb;
     }
 
     function factorT() {
