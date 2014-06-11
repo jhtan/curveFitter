@@ -1,14 +1,24 @@
 $(document).ready( function () {
 //    var X = [], Y = [], lnX = [], lnY = [], points = []; // the data of the graph.
-    var X = [4,6,8,10,12,15], Y = [10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data.
-
+//    var X = [4,6,8,10,12,15], Y = [10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data for lineal.
+    var X = [1.2, 1.5, 2.5, 3, 4.5, 5.1, 7.1, 8.1], Y = [1.2, 1.8, 5, 9, 19.5, 32.5, 55, 80], lnX = [], lnY = [], points = []; // test data for potential.
+//    var X = [0.2, 0.4, 0.6, 0.8, 1, 1.2], Y = [5.2, 10.7, 20.5, 37.8, 74.6, 140.6], lnX = [], lnY = [], points = []; // test data for potential.
     getLogs();
     getTheModel();
 
+//    setTimeout( function () {
+//        redrawTheChart();
+//        alert(':P');
+//    }, 3000);
+
     // Creation of the jQplot object.
     var plot = $.jqplot ("chartHolder", [points], {
-        title: 'Ajuste de curvas',
-        series: [{showMarker: false}]
+        title: 'Gráfica Linealizada',
+        series: [{showMarker: false}],
+        axes: {
+            xaxis: {label: "X"},
+            yaxis: {label: "Y"}
+        }
     });
 
     /**
@@ -114,13 +124,29 @@ $(document).ready( function () {
      * Creating the points for a potential function.
      */
     function potentialFunctionPoints() {
-        var a = calculateA(X, Y);
-        var b = calculateB(X, Y);
+        var a = Math.pow(Math.E,calculateA(lnX, lnY));
+        $('#aValue').text(a);
+        var b = calculateB(lnX, lnY);
+        var r = calculateR(lnX, lnY);
 
         points = [];
         for (var i = -3; i <= 3; i+=0.1) {
-            points.push([i, a*Math.pow(i, b)]);
+            points.push([i, a*i+b]);
         }
+
+        points2 = [];
+        for(var i= 0; i< X.length; i++) {
+            points2.push([X[i], Y[i]]);
+        }
+
+        var plot2= $.jqplot ("chartHolder2", [points2], {
+            title: 'Modelo Potencial',
+            series: [{showLine: false}],
+            axes: {
+                xaxis: {label: "log X"},
+                yaxis: {label: "log Y"}
+            }
+        });
     }
 
     /**
@@ -157,8 +183,10 @@ $(document).ready( function () {
         lnX.push(Math.log(parseFloat(x)));
         lnY.push(Math.log(parseFloat(y)));
         linealFunctionPoints();
+        redrawTheChart();
+    }
 
-        // Redraw the chart.
+    function redrawTheChart() {
         plot.destroy();
         plot = $.jqplot ("chartHolder", [points], {
             title: 'Ajuste de curvas',
@@ -170,7 +198,7 @@ $(document).ready( function () {
         var sumx = 0;
         
         for(var i=0; i< vX.length; i++) {
-            sumx = sumx + parseInt(vX[i]);
+            sumx = sumx + parseFloat(vX[i]);
         }
         return parseFloat(sumx);
     }
@@ -235,8 +263,8 @@ $(document).ready( function () {
     }
 
     function calculateR(vX, vY) {
-        var n = (X.length * Sumxy(vX, vY)) - (Sumx(vX) * Sumy(vY));
-        var root = (X.length * Sumx2(vX) - (Sumx(vX)*Sumx(vX)))*(X.length*Sumy2(vY)-(Sumy(vY)*Sumy(vY)));
+        var n = (vX.length * Sumxy(vX, vY)) - (Sumx(vX) * Sumy(vY));
+        var root = parseFloat( (vX.length * Sumx2(vX) - (Sumx(vX)*Sumx(vX)))*(X.length*Sumy2(vY)-(Sumy(vY)*Sumy(vY))) );
         var m = Math.sqrt(root);
         var r = parseFloat(n) / parseFloat(m);
 
