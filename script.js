@@ -2,7 +2,7 @@ $(document).ready( function () {
 //    var X = [], Y = [], lnX = [], lnY = [], points = []; // the data of the graph.
 //    var X = [4,6,8,10,12,15], Y = [10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data for lineal.
     var X = [1.2, 1.5, 2.5, 3, 4.5, 5.1, 7.1, 8.1], Y = [1.2, 1.8, 5, 9, 19.5, 32.5, 55, 80], lnX = [], lnY = [], points = []; // test data for potential.
-//    var X = [0.2, 0.4, 0.6, 0.8, 1, 1.2], Y = [5.2, 10.7, 20.5, 37.8, 74.6, 140.6], lnX = [], lnY = [], points = []; // test data for potential.
+////    var X = [0.2, 0.4, 0.6, 0.8, 1, 1.2], Y = [5.2, 10.7, 20.5, 37.8, 74.6, 140.6], lnX = [], lnY = [], points = []; // test data for potential.
     var student=80;
     getLogs();
     getTheModel();
@@ -17,8 +17,8 @@ $(document).ready( function () {
         title: 'Gráfica Linealizada',
         series: [{showMarker: false}],
         axes: {
-            xaxis: {label: "X"},
-            yaxis: {label: "Y"}
+            xaxis: {label: "log X"},
+            yaxis: {label: "log Y"}
         }
     });
 
@@ -151,8 +151,8 @@ $(document).ready( function () {
             title: 'Modelo Potencial',
             series: [{showLine: false}],
             axes: {
-                xaxis: {label: "log X"},
-                yaxis: {label: "log Y", tickSpacing: 10000}
+                xaxis: {label: "X"},
+                yaxis: {label: "Y", tickSpacing: 10000}
             }
         });
     }
