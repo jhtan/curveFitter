@@ -42,10 +42,13 @@ $(document).ready( function () {
         $('#linR').text(Math.round(r1*100)/100);
 
         // Potential function.
+        var ea2=0;//variable para hacer el cambio d evar e^A*
+        
         var a2 = calculateA(lnX, lnY);
         var b2 = calculateB(lnX, lnY);
         var r2 = calculateR(lnX, lnY);
-        $('#potA').text(Math.round(a2*100)/100);
+        ea2=Math.pow(Math.E,a2);
+        $('#potA').text(Math.round(ea2*100)/100);
         $('#potB').text(Math.round(b2*100)/100);
         $('#potR').text(Math.round(r2*100)/100);
 
@@ -61,7 +64,9 @@ $(document).ready( function () {
         var a4 = calculateA(X, lnY);
         var b4 = calculateB(X, lnY);
         var r4 = calculateR(X, lnY);
-        $('#expA').text(Math.round(a4*100)/100);
+        var ea=0;//variable para hacer el cambio d evar e^A*
+        ea=Math.pow(Math.E,a4);
+        $('#expA').text(Math.round(ea*100)/100);
         $('#expB').text(Math.round(b4*100)/100);
         $('#expR').text(Math.round(r4*100)/100);
 
