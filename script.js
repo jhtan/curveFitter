@@ -241,6 +241,8 @@ $(document).ready( function () {
         case 8:
             return matriz[n][8];
             break;
+        default:
+            alert("NO SE PUEDE BRO..");    
 
         }
        /**
