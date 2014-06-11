@@ -51,34 +51,72 @@
             <li><a href="#">Export</a></li>-->
           </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Gráfica</h1>
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Gráfica</h1>
 
-	  <div id="chartHolder"></div>
+              <div id="chartHolder"></div>
 
-            <h3>a = <span id="aValue"></span>
-             | b = <span id="bValue"></span>
-             | r = <span id="rValue"></span></h3>
-            <h3>y = <span id="aValueRounded">a</span> x + <span id="bValueRounded">b</span></h3>
+              <h3>
+                  <span class="label label-info">a = <span id="aValue"></span></span>
+                  <span class="label label-info">b = <span id="bValue"></span></span>
+                  <span class="label label-info">r = <span id="rValue"></span></span></h3>
+              <h3><span class="label label-success">y = <span id="aValueRounded">a</span> x + <span id="bValueRounded">b</span></span></h3>
 
-          <h2 class="sub-header">Datos</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>X</th>
-                  <th>Y</th>
-                </tr>
-              </thead>
-              <tbody id="dataTable">
-                <tr>
-                  <td><input id="newXCoordinate" type="text" class="form-control" placeholder="x"></td>
-                  <td><input id="newYCoordinate" type="text" class="form-control" placeholder="y"></td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="table-responsive table table-striped">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><h4>a</h4></td>
+                        <td><h4>b</h4></td>
+                        <td><h4>r</h4></td>
+                    </tr>
+                </thead>
+                  <tbody>
+                    <tr>
+                        <td><h4>Lineal</h4></td>
+                        <td><span id="linA"></span></td>
+                        <td><span id="linB"></span></td>
+                        <td><span id="linR"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Potencial</h4></td>
+                        <td><span id="potA"></span></td>
+                        <td><span id="potB"></span></td>
+                        <td><span id="potR"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Logarítmica</h4></td>
+                        <td><span id="logA"></span></td>
+                        <td><span id="logB"></span></td>
+                        <td><span id="logR"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Exponencial</h4></td>
+                        <td><span id="expA"></span></td>
+                        <td><span id="expB"></span></td>
+                        <td><span id="expR"></span></n></td>
+                    </tr>
+                  </tbody>
+              </table>
+
+              <h2 class="sub-header">Datos</h2>
+              <div class="table-responsive">
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>X</th>
+                          <th>Y</th>
+                      </tr>
+                      </thead>
+                      <tbody id="dataTable">
+                      <tr>
+                          <td><input id="newXCoordinate" type="text" class="form-control" placeholder="x"></td>
+                          <td><input id="newYCoordinate" type="text" class="form-control" placeholder="y"></td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
           </div>
-        </div>
       </div>
     </div>
 
