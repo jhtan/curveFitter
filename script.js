@@ -50,17 +50,17 @@ $(document).ready( function () {
         $('#potR').text(Math.round(r2*100)/100);
 
         // Logarithmic function.
-        var a3 = calculateA(X, lnY);
-        var b3 = calculateB(X, lnY);
-        var r3 = calculateR(X, lnY);
+        var a3 = calculateA(lnX, Y);
+        var b3 = calculateB(lnX, Y);
+        var r3 = calculateR(lnX, Y);
         $('#logA').text(Math.round(a3*100)/100);
         $('#logB').text(Math.round(b3*100)/100);
         $('#logR').text(Math.round(r3*100)/100);
 
         // Exponential function.
-        var a4 = calculateA(lnX, lnY);
-        var b4 = calculateB(lnX, lnY);
-        var r4 = calculateR(lnX, lnY);
+        var a4 = calculateA(X, lnY);
+        var b4 = calculateB(X, lnY);
+        var r4 = calculateR(X, lnY);
         $('#expA').text(Math.round(a4*100)/100);
         $('#expB').text(Math.round(b4*100)/100);
         $('#expR').text(Math.round(r4*100)/100);
