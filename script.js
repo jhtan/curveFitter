@@ -3,6 +3,7 @@ $(document).ready( function () {
 //    var X = [4,6,8,10,12,15], Y = [10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data for lineal.
     var X = [1.2, 1.5, 2.5, 3, 4.5, 5.1, 7.1, 8.1], Y = [1.2, 1.8, 5, 9, 19.5, 32.5, 55, 80], lnX = [], lnY = [], points = []; // test data for potential.
 //    var X = [0.2, 0.4, 0.6, 0.8, 1, 1.2], Y = [5.2, 10.7, 20.5, 37.8, 74.6, 140.6], lnX = [], lnY = [], points = []; // test data for potential.
+    var student=80;
     getLogs();
     getTheModel();
 
@@ -354,35 +355,35 @@ $(document).ready( function () {
        
        var n=0;
        n = X.length-2;
-       var student;
-       student=0;
+       //var student;
+       //student=0;
        //student
        switch (student) {
-        case 0:
+        case 50:
             return matriz[n][0];
             break;
-        case 1:
+        case 80:
             return matriz[n][1];
             break;
-        case 2:
+        case 90:
             return matriz[n][2];
             break;
-        case 3:
+        case 95:
             return matriz[n][3];
             break;
-        case 4:
+        case 98:
             return matriz[n][4];
             break;
-        case 5:
+        case 99:
             return matriz[n][5];
             break;
-        case 6:
+        case 99.5:
             return matriz[n][6];
             break;
-        case 7:
+        case 99.8:
             return matriz[n][7];
             break;
-        case 8:
+        case 99.9:
             return matriz[n][8];
             break;
         default:
