@@ -71,6 +71,11 @@ $(document).ready( function () {
             calculateA(X, Y);
             calculateB(X, Y);
             linealFunctionPoints();
+
+            var sa = Sa(a1, b1, X, Y);
+            var sb = Sb(a1, b1, X, Y);
+            $('#saValue').text(sa);
+            $('#sbValue').text(sb);
         } else if(Math.abs(1-r2)<Math.abs(1-r1) && Math.abs(1-r2)<Math.abs(1-r3) && Math.abs(1-r2)<Math.abs(1-r4)) {
             // It's selected the potential model.
             $('#collapseDecisionTable').text('Se eligió el modelo potencial');
@@ -241,34 +246,29 @@ $(document).ready( function () {
     }
 
     //calculate Sy/x, Sa, Sb
-    function Syx() {
-        var syx=0;
-        var sumab=0;
-        for( var i=0; i< X.length; i++)
-        {
-            sumab+=((a+b*X[i])-Y[i])*((a+b*X[i])-Y[i]);
+    function Syx(a, b, vX, vY) {
+        var sumab = 0;
+        for( var i=0; i< vX.length; i++) {
+            sumab += ((a+b*vX[i])-vY[i]) * ((a+b*vX[i])-vY[i]);
         }
-        Syx = Math.sqrt(sumab/X.length()-2);
-        return syx; 
+        return Math.sqrt(sumab/vX.length-2);
     }
 
-    function Sb() {
+    function Sb(a, b, vX, vY) {
         var sb=0;
-        var m= Sumx2() - ((Sumx()*Sumx())/X.length);
-        sb = syx()/Math.sqrt(m);
-        return sb; 
+        var m = Sumx2(vX) - ((Sumx(vX)*Sumx(vX))/vX.length);
+        return Syx(a, b, vX, vY)/Math.sqrt(m);
     }
 
-    function Sa() {
+    function Sa(a, b, vX, vY) {
         var sa=0;
         var m=0;
-        m = X.length*Sumx2() - (Sumx()*Sumx()); 
-        sa= syx()*Math.sqrt(Sumx2()/m);
-        return sa;
+        m = vX.length*Sumx2(vX) - (Sumx(vX)*Sumx(vX));
+        return Syx(a, b, vX, vY)*Math.sqrt(Sumx2(vX)/m);
     }
 
     function factorT() {
-        matriz = new Array (); 
+        var matriz = new Array ();
         matriz[0] = new Array (1.000 , 3.078, 6.314, 12.706, 31.821, 63.657, 127.3, 318.31, 636.62); 
         matriz[1] = new Array (0.816, 1.886, 2.920, 4.303, 6.965, 9.925, 14.089, 23.326, 31.598); 
         matriz[2] = new Array (0.765, 1.638, 2.353, 3.182, 4.541, 5.841, 7.453, 10.213, 12.924);
