@@ -144,7 +144,7 @@ $(document).ready( function () {
             series: [{showLine: false}],
             axes: {
                 xaxis: {label: "log X"},
-                yaxis: {label: "log Y"}
+                yaxis: {label: "log Y", tickSpacing: 10000}
             }
         });
     }
