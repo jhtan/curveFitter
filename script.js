@@ -1,14 +1,9 @@
 $(document).ready( function () {
 //    var X = [], Y = [], lnX = [], lnY = [], points = []; // the data of the graph.
-//    var X = [2,4,6,8,10,12,15], Y = [0,10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data.
     var X = [4,6,8,10,12,15], Y = [10,18,32,45,52,65], lnX = [], lnY = [], points = []; // test data.
 
     getLogs();
-    linealFunctionPoints();
     getTheModel();
-    calculateA(X, Y);
-    calculateB(X, Y);
-
 
     // Creation of the jQplot object.
     var plot = $.jqplot ("chartHolder", [points], {
@@ -39,7 +34,7 @@ $(document).ready( function () {
         var r1 = calculateR(X, Y);
         $('#linA').text(Math.round(a1*100)/100);
         $('#linB').text(Math.round(b1*100)/100);
-        $('#linR').text(Math.round(r1*100)/100);
+        $('#linR').text(Math.round(r1*1000000)/1000000);
 
         // Potential function.
         var ea2=0;//variable para hacer el cambio d evar e^A*
@@ -50,7 +45,7 @@ $(document).ready( function () {
         ea2=Math.pow(Math.E,a2);
         $('#potA').text(Math.round(ea2*100)/100);
         $('#potB').text(Math.round(b2*100)/100);
-        $('#potR').text(Math.round(r2*100)/100);
+        $('#potR').text(Math.round(r2*1000000)/1000000);
 
         // Logarithmic function.
         var a3 = calculateA(lnX, Y);
@@ -58,7 +53,7 @@ $(document).ready( function () {
         var r3 = calculateR(lnX, Y);
         $('#logA').text(Math.round(a3*100)/100);
         $('#logB').text(Math.round(b3*100)/100);
-        $('#logR').text(Math.round(r3*100)/100);
+        $('#logR').text(Math.round(r3*1000000)/1000000);
 
         // Exponential function.
         var a4 = calculateA(X, lnY);
@@ -68,17 +63,32 @@ $(document).ready( function () {
         ea=Math.pow(Math.E,a4);
         $('#expA').text(Math.round(ea*100)/100);
         $('#expB').text(Math.round(b4*100)/100);
-        $('#expR').text(Math.round(r4*100)/100);
+        $('#expR').text(Math.round(r4*1000000)/1000000);
 
         if(Math.abs(1-r1)<Math.abs(1-r2) && Math.abs(1-r1)<Math.abs(1-r3) && Math.abs(1-r1)<Math.abs(1-r4)) {
             // It's selected the lineal model.
-            
+            $('#collapseDecisionTable').text('Se eligió el modelo lineal');
+            calculateA(X, Y);
+            calculateB(X, Y);
+            linealFunctionPoints();
         } else if(Math.abs(1-r2)<Math.abs(1-r1) && Math.abs(1-r2)<Math.abs(1-r3) && Math.abs(1-r2)<Math.abs(1-r4)) {
             // It's selected the potential model.
+            $('#collapseDecisionTable').text('Se eligió el modelo potencial');
+            calculateA(lnX, lnY);
+            calculateB(lnX, lnY);
+            potentialFunctionPoints();
         } else if(Math.abs(1-r3)<Math.abs(1-r1) && Math.abs(1-r3)<Math.abs(1-r2) && Math.abs(1-r3)<Math.abs(1-r4)) {
             // It's selected the logarithmic model.
+            $('#collapseDecisionTable').text('Se eligió el modelo logarítmico');
+            calculateA(lnX, Y);
+            calculateB(lnX, Y);
+            logarithmicFunctionPoints();
         } else if(Math.abs(1-r4)<Math.abs(1-r1) && Math.abs(1-r4)<Math.abs(1-r2) && Math.abs(1-r4)<Math.abs(1-r3)) {
             // It's selected the exponential model.
+            $('#collapseDecisionTable').text('Se eligió el modelo exponencial');
+            calculateA(X, lnY);
+            calculateB(X, lnY);
+            exponentialFunctionPoints();
         }
     }
 
@@ -92,6 +102,45 @@ $(document).ready( function () {
         points = [];
         for (var i = -3; i <= 3; i+=0.1) {
             points.push([i, a*i+b]);
+        }
+    }
+
+    /**
+     * Creating the points for a potential function.
+     */
+    function potentialFunctionPoints() {
+        var a = calculateA(X, Y);
+        var b = calculateB(X, Y);
+
+        points = [];
+        for (var i = -3; i <= 3; i+=0.1) {
+            points.push([i, a*Math.pow(i, b)]);
+        }
+    }
+
+    /**
+     * Creating the points for a exponential function.
+     */
+    function exponentialFunctionPoints() {
+        var a = calculateA(X, Y);
+        var b = calculateB(X, Y);
+
+        points = [];
+        for (var i = -3; i <= 3; i+=0.1) {
+            points.push([i, a*Math.pow(b, i)]);
+        }
+    }
+
+    /**
+     * Creating the points for a logarithmic function.
+     */
+    function logarithmicFunctionPoints() {
+        var a = calculateA(X, Y);
+        var b = calculateB(X, Y);
+
+        points = [];
+        for (var i = -3; i <= 3; i+=0.1) {
+            points.push([i, a+b*Math.log(i)]);
         }
     }
 
@@ -192,8 +241,7 @@ $(document).ready( function () {
     }
 
     //calculate Sy/x, Sa, Sb
-    function Syx()
-    {
+    function Syx() {
         var syx=0;
         var sumab=0;
         for( var i=0; i< X.length; i++)
@@ -203,26 +251,23 @@ $(document).ready( function () {
         Syx = Math.sqrt(sumab/X.length()-2);
         return syx; 
     }
-    function Sb()
-    {
+
+    function Sb() {
         var sb=0;
         var m= Sumx2() - ((Sumx()*Sumx())/X.length);
         sb = syx()/Math.sqrt(m);
         return sb; 
     }
 
-    function Sa()
-    {
+    function Sa() {
         var sa=0;
         var m=0;
         m = X.length*Sumx2() - (Sumx()*Sumx()); 
         sa= syx()*Math.sqrt(Sumx2()/m);
         return sa;
     }
-    // /**
 
-    function factorT()
-    {
+    function factorT() {
         matriz = new Array (); 
         matriz[0] = new Array (1.000 , 3.078, 6.314, 12.706, 31.821, 63.657, 127.3, 318.31, 636.62); 
         matriz[1] = new Array (0.816, 1.886, 2.920, 4.303, 6.965, 9.925, 14.089, 23.326, 31.598); 
@@ -310,5 +355,10 @@ $(document).ready( function () {
             $("#newXCoordinate").val(""); // clear the textbox
             $("#newYCoordinate").val(""); // clear the textbox
         }
+    });
+
+    // Show and hide the table decision table of models.
+    $('#collapseDecisionTable').click( function () {
+        $('#decisionTable').toggle("slow");
     });
 });
