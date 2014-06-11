@@ -92,6 +92,8 @@ $(document).ready( function () {
             calculateA(lnX, lnY);
             calculateB(lnX, lnY);
             potentialFunctionPoints();
+            uncertaintyA(ea2,b2,lnX,lnY);
+            uncertaintyB(ea2,b2,lnX,lnY);
         } else if(Math.abs(1-r3)<Math.abs(1-r1) && Math.abs(1-r3)<Math.abs(1-r2) && Math.abs(1-r3)<Math.abs(1-r4)) {
             // It's selected the logarithmic model.
             $('#collapseDecisionTable').text('Se eligió el modelo logarítmico');
@@ -273,13 +275,15 @@ $(document).ready( function () {
         return r;
     }
 
-    //calculate Sy/x, Sa, Sb
+    //calculate Seay/x, Sa, Sb
     function Syx(a, b, vX, vY) {
         var sumab = 0;
         for( var i=0; i< vX.length; i++) {
             sumab += ((a+b*vX[i])-vY[i]) * ((a+b*vX[i])-vY[i]);
         }
-        return Math.sqrt(sumab/vX.length-2);
+       // alert("sumab = " + sumab);
+        //alert(Math.sqrt(sumab/(vX.length-2)));
+        return Math.sqrt(sumab/(vX.length-2));
     }
 
     function Sb(a, b, vX, vY) {
@@ -292,7 +296,24 @@ $(document).ready( function () {
         var sa=0;
         var m=0;
         m = vX.length*Sumx2(vX) - (Sumx(vX)*Sumx(vX));
+        //alert(Syx(a, b, vX, vY)*Math.sqrt(Sumx2(vX)/m));
         return Syx(a, b, vX, vY)*Math.sqrt(Sumx2(vX)/m);
+    }
+
+    //calculate uncertainty of a
+    function uncertaintyA(a, b, vX, vY)
+    {
+        var Ea=0;
+        Ea=Sa(a, b, vX, vY)*factorT();
+        alert(Ea);
+
+    }
+    //calculate uncertainty of b
+    function uncertaintyB(a, b, vX, vY)
+    {
+        var Eb=0;
+        Eb=Sb(a, b, vX, vY)*factorT();
+        alert(Eb);
     }
 
     function factorT() {
